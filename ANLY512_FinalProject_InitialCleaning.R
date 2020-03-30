@@ -20,10 +20,6 @@ library(lubridate)
 # write.csv(TrafficDF, file = 'Traffic_Violations2.csv')
 
 
-
-
-
-
 # Data Import & Preliminary Cleaning -------------------------------------------
 ##import reduced size dataset and check quality of import
 TrafficDF <- read.csv('MergedTrafficWeather.csv',  na.strings = '')
@@ -39,6 +35,8 @@ TrafficDF$Date.time    <- as.POSIXlt(TrafficDF$Date.time, format = '%Y-%m-%d %H:
 TrafficDF$Agency       <- NULL  #all records are 'MCP', so drop
 TrafficDF$Description  <- as.character(TrafficDF$Description)   #relatively unique inputs for each
 TrafficDF$Location     <- as.character(TrafficDF$Location)   #relatively unique inputs for each
+TrafficDF$Heat.Index[TrafficDF$Heat.Index == 0] <- NA   #original a 0 was a NA value, NA is better for statistics
+TrafficDF$Wind.Chill[TrafficDF$Temperature > 40 & TrafficDF$Wind.Chill == 0] <- NA   #original a 0 was a NA value, NA is better for statistics
 TrafficDF$Search.Reason.For.Stop <- as.character(TrafficDF$Search.Reason.For.Stop)   #relatively unique inputs for each
 TrafficDF$Year         <- as.integer(as.character(TrafficDF$Year))   #convert to INT for easier manipulation
 TrafficDF$Make         <- as.character(TrafficDF$Make)   #too many to types to check against (from personal cars to farm tractor brands)
@@ -49,6 +47,7 @@ TrafficDF$Geolocation  <- NULL  #already recorded in Lat/Long Columns
 
 #confirm column type changes were appropriately registered
 str(TrafficDF)
+
 
 
 
@@ -215,15 +214,16 @@ TrafficDF <- TrafficDF[c(2, 1, 3, 4, 5, 6, 7, 37, 38, 39, 40, 41, 42, 43, 44, 45
                          31, 33, 34, 35, 36, 49, 50, 51)]
 
 #export cleaned dataset for future use
-write.csv(TrafficDF, file = 'Traffic_Violations_Clean.csv')
+#write.csv(TrafficDF, file = 'Traffic_Violations_Clean.csv')
 
 score_clean(TrafficDF)
 
+#calculate effective dataset cleanliness
+(577932+577932+577932+3568+585269)/(length(TrafficDF$SeqID)*length(colnames(TrafficDF)))
 
 ####NEXT STEPS####
 #NOTE: CRTL+SHIFT+R inputs a chuck, which keeps the code clean
 #binned categories
 #generate for highway (495, 270, etc.)
 #conduct summary statistical analysis
-
 
