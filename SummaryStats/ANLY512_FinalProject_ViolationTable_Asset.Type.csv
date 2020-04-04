@@ -1,0 +1,20 @@
+"Asset.Type","Violation.Type","n","DailyFreq"
+"A - Marked Patrol","Citation",191843,0.38971568101669
+"B - Unmarked Patrol","Citation",8381,0.446272630457934
+"C - Marked VASCAR","Citation",50,0.446428571428571
+"D - Unmarked VASCAR","Citation",26,0.333333333333333
+"E - Marked Stationary Radar","Citation",1588,0.399195575666164
+"F - Unmarked Stationary Radar","Citation",43,0.241573033707865
+"G - Marked Moving Radar (Stationary)","Citation",3285,0.583067092651757
+"H - Unmarked Moving Radar (Stationary)","Citation",238,0.286746987951807
+"I - Marked Moving Radar (Moving)","Citation",940,0.777502067824648
+"J - Unmarked Moving Radar (Moving)","Citation",282,0.474747474747475
+"K - Aircraft Assist","Citation",2,0.181818181818182
+"L - Motorcycle","Citation",1772,0.492769744160178
+"M - Marked (Off-Duty)","Citation",342,0.312614259597806
+"N - Unmarked (Off-Duty)","Citation",42,0.666666666666667
+"O - Foot Patrol","Citation",1306,0.379651162790698
+"P - Mounted Patrol","Citation",26,0.2
+"Q - Marked Laser","Citation",17992,0.427059102777118
+"R - Unmarked Laser","Citation",639,0.399624765478424
+"S - License Plate Recognition","Citation",2228,0.835708927231808

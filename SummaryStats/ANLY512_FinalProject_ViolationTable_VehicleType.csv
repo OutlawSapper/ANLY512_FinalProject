@@ -1,0 +1,26 @@
+"VehicleType","Violation.Type","n","DailyFreq"
+"01 - Motorcycle","Citation",2161,0.4834451901566
+"02 - Automobile","Citation",209248,0.398809943565709
+"03 - Station Wagon","Citation",2532,0.396865203761755
+"04 - Limousine","Citation",85,0.435897435897436
+"05 - Light Duty Truck","Citation",10644,0.441916465996845
+"06 - Heavy Duty Truck","Citation",1102,0.304504006631666
+"07 - Truck/Road Tractor","Citation",218,0.435129740518962
+"08 - Recreational Vehicle","Citation",391,0.260666666666667
+"09 - Farm Vehicle","Citation",4,0.148148148148148
+"10 - Transit Bus","Citation",101,0.534391534391534
+"11 - Cross Country Bus","Citation",2,0.2
+"12 - School Bus","Citation",57,0.398601398601399
+"13 - Ambulance(Emerg)","Citation",1,1
+"15 - Fire(Emerg)","Citation",8,1
+"18 - Police(Non-Emerg)","Citation",5,0.714285714285714
+"19 - Moped","Citation",315,0.741176470588235
+"20 - Commercial Rig","Citation",130,0.418006430868167
+"21 - Tandem Trailer","Citation",3,0.142857142857143
+"23 - Travel/Home Trailer","Citation",8,0.727272727272727
+"24 - Camper","Citation",6,0.857142857142857
+"25 - Utility Trailer","Citation",75,0.28957528957529
+"26 - Boat Trailer","Citation",11,0.34375
+"27 - Farm Equipment","Citation",3,0.2
+"28 - Other","Citation",3144,0.398529598174674
+"29 - Unknown","Citation",771,0.215002788622421
