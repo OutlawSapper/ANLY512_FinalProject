@@ -40,12 +40,6 @@ majorRoad <- '270|495|OLD GEORGETOWN|187|355|WISCONSIN|
 
 TrafficDF$MajorRoad <- grepl(majorRoad, TrafficDF$Location)
 
-#generate feature hot weather and cold weather
-TrafficDF$HighHeat  <- TrafficDF$Heat.Index >= 103 #based on OSHA Guidance for High Risk to Workers 
-TrafficDF$ExCold    <- TrafficDF$Wind.Chill < 0  #based on OSHA Guidance for High Risk to Workers 
-
-summary(TrafficDF)
-
 #create a general charge code (i.e. 21-801, 21-201) to allow for featurization of this category
 #the general municipal code is sufficient to issue the incident question
 TrafficDF$ShortCharge <- str_extract(TrafficDF$Charge, '\\d+-\\d\\d\\d')
