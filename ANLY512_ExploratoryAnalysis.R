@@ -9,6 +9,7 @@ library(randomForest)
 library(gbm)
 library(doParallel)
 library(caret)
+library(randomForestExplainer)
 
 options(scipen=999)
 
@@ -39,7 +40,6 @@ summary(TrafficDF$Commercial.Vehicle)
 
 #all records have 'No' so it is not required...DROP
 TrafficDF$Commercial.License <- NULL
-
 
 # Geohash Manipulation ----------------------------------------------------
 #translate latitude and longitude to geohash to enable better ML
@@ -309,6 +309,7 @@ cat('\n##########', 'Initial GBM Predict Confusion Matrix', '##########\n')
 confusionMatrix(preds, testDF$Violation.Type)
 sink()
 
+save(gbm_fit, file = "gbm_model.rda")
 
 # Random Forest for Prediction(DON'T RERUN) --------------------------------------------
 trainDF <- subDF[sample(nrow(subDF), size = nrow(subDF)*.70), ]
@@ -372,6 +373,62 @@ png('ANLY512_FinalProject_FinalRFTreeError.png', width = 1500, height = 1000)
 varImpPlot(rf_fit150)
 dev.off()
 
+save(rf_fit50, file = "rf_fit50.rda")
+
+load("rf_fit50.rda")
 
 
+# RF Explain (TEST) -------------------------------------------------------
 
+#run a test RF with interaction effects considered
+rf_fit502  <- randomForest(Violation.Type ~ ., data = trainDF, mtry = 4, ntree = 50, localImp = TRUE)
+summary(rf_fit502)
+
+preds502 <- predict(rf_fit502, newdata = testDF)
+confusionMatrix(preds502, testDF$Violation.Type)
+
+#evaulate the final model for mean depth of feature in trees
+sink('ANLY512_FinalProject_RFminDepth.txt', append = TRUE)
+# min_depth_frame <- min_depth_distribution(rf_fit50)
+save(min_depth_frame, file = "min_depth_frame.rda")
+print(min_depth_frame)
+sink()
+
+#understand the resulting data frame
+head(min_depth_frame)
+
+#save resulting plot for future use
+png('ANLY512_FinalProject_minDepthFrame.png', width = 1250, height = 1000)
+plot_min_depth_distribution(min_depth_frame, k = 15, mean_sample = "top_trees",
+                            main = 'Feature Distribution by Minimal Depth and Means')
+dev.off()
+
+#evaluate the final model for feature importance
+sink('ANLY512_FinalProject_RFmeasureImp.txt', append = TRUE)
+# importance_frame <- measure_importance(rf_fit50)
+save(importance_frame, file = "importance_frame.rda")
+print(importance_frame)
+sink()
+
+#understand the resulting data frame
+head(importance_frame)
+
+#save resulting plots for future use (two variations)
+png('ANLY512_FinalProject_VarImportance1.png', width = 1250, height = 1000)
+plot_multi_way_importance(importance_frame, size_measure = "no_of_nodes", 
+                          no_of_labels = 15, main = 'Variable Importance Scatter Plot')
+dev.off()
+
+png('ANLY512_FinalProject_VarImportance2.png', width = 1250, height = 1000)
+plot_multi_way_importance(importance_frame, x_measure = "accuracy_decrease", 
+                          y_measure = "gini_decrease", size_measure = "times_a_root", 
+                          no_of_labels = 15, main = 'Variable Importance Scatter Plot')
+dev.off()
+
+#compare the measures using ggpairs
+#save resulting plot for future use (two variations)
+png('ANLY512_FinalProject_MeasureImp.png', width = 1250, height = 1000)
+plot_importance_ggpairs(importance_frame,measures = c('gini_decrease', 'mean_min_depth', 'no_of_nodes', 'accuracy_decrease'))
+dev.off()
+
+plot_importance_rankings(importance_frame)
