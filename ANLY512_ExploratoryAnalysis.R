@@ -11,7 +11,7 @@ library(glmnet)
 library(doParallel)
 library(caret)
 library(randomForestExplainer)
-library(ROCR)
+library(parallel)
 
 options(scipen=999)
 
